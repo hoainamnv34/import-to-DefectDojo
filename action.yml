@@ -22,7 +22,7 @@ inputs:
   #   default: "stdout"
 runs:
   using: 'docker'
-  image: 'python:3.9-bullseye'
+  image: 'docker://python:3.9-bullseye'
   entrypoint: sh
   args:
   - -c
