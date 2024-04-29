@@ -26,5 +26,5 @@ runs:
   entrypoint: sh
   args:
   - -c
-  - ls
+  - cat ${{ inputs.report }}
   # - python3 import_to_defect_dojo.py --host "${{ inputs.host }}" --product "${{ inputs.product }}" --engagement "${{ inputs.engagement }}" --scan "${{ inputs.scan }}" --report "${{ inputs.report }}"
