@@ -29,4 +29,15 @@ runs:
   # entrypoint: sh
   args:
   # - -c
-  - --host "${{ inputs.host }}" --product "${{ inputs.product }}" --engagement "${{ inputs.engagement }}" --scan "${{ inputs.scan }}" --report "${{ inputs.report }}" --token "${{ inputs.token }}"
+  - --host 
+  - "${{ inputs.host }}" 
+  - --product 
+  - "${{ inputs.product }}"
+  - --engagement
+  - "${{ inputs.engagement }}"
+  - --scan 
+  - "${{ inputs.scan }}"
+  - --report 
+  - "${{ inputs.report }}"
+  - --token
+  - "${{ inputs.token }}"
