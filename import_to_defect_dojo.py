@@ -26,19 +26,21 @@ def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name,
 
 
 if __name__ == "__main__":
-    try:
-        token = os.environ.get("DEFECT_DOJO_API_TOKEN")
-        print(token)
-    except KeyError: 
-        print("Please set the environment variable DEFECT_DOJO_API_TOKEN") 
-        sys.exit(1)
-    if len(sys.argv) == 13:
+    # try:
+    #     token = os.environ.get("DEFECT_DOJO_API_TOKEN")
+    #     print(token)
+    # except KeyError: 
+    #     print("Please set the environment variable DEFECT_DOJO_API_TOKEN") 
+    #     sys.exit(1)
+    print(sys.argv)
+    if len(sys.argv) == 15:
         url = sys.argv[2]
         product_name = sys.argv[4]
         engagement_name = sys.argv[6]
         scan_type = sys.argv[8]
         report = sys.argv[10]
         is_new_import = sys.argv[12]
+        token=sys.argv[14]
 
         print("token ", token, "host: ", url, " product_name", product_name, " engagement_name", engagement_name, " scan_type", scan_type)
 
