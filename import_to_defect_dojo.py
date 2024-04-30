@@ -19,7 +19,7 @@ def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name,
             'Authorization': 'Token ' + token,
         }
     )
-    if r.status_code != 200:
+    if r.status_code != 200 and r.status_code != 201:
         sys.exit(f'Post failed: {r.text}')
     print(r.text)
 
@@ -41,6 +41,8 @@ if __name__ == "__main__":
         report = sys.argv[10]
         is_new_import = sys.argv[12]
         token=sys.argv[14]
+
+        is_new_import = True if is_new_import=="True" else False
 
         print("token ", token, "host: ", url, " product_name", product_name, " engagement_name", engagement_name, " scan_type", scan_type)
 
