@@ -14,6 +14,9 @@ inputs:
   scan:
     description: "Scan type"
     required: true
+  is_new_import:
+    description: "is new import"
+    default: "true"
   report:
     description: "Report for import"
     required: true
@@ -39,5 +42,7 @@ runs:
   - "${{ inputs.scan }}"
   - --report 
   - "${{ inputs.report }}"
+  - --new
+  - "${{ inputs.is_new_import }}"
   - --token
   - "${{ inputs.token }}"
