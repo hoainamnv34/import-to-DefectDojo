@@ -59,6 +59,6 @@ if __name__ == "__main__":
         uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name, scan_type, report)
     else:
         print(
-            'Usage: python3 import_to_defect_dojo.py --host DOJO_URL --product PRODUCT_NAME --engagement ENGAGEMENT_NAME --report REPORT_FILE --new-import True/False')
+            'Usage: python3 import_to_defect_dojo.py --host DOJO_URL --product PRODUCT_NAME --engagement ENGAGEMENT_NAME --report REPORT_FILE --new-import True/False --token TOKEN')
     
     
