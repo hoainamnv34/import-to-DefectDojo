@@ -19,7 +19,7 @@ inputs:
     default: "True"
   report:
     description: "Report for import"
-    required: true
+    required: false
   token:
     description: "token for import"
     required: true
