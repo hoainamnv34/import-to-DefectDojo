@@ -42,7 +42,7 @@ runs:
   - "${{ inputs.scan }}"
   - --report 
   - "${{ inputs.report }}"
-  - --is_new
+  - --is-new
   - "${{ inputs.is_new_import }}"
   - --token
   - "${{ inputs.token }}"
