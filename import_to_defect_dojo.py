@@ -25,6 +25,7 @@ def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name,
 
     endpoint = '/api/v2/import-scan/' if is_new_import else '/api/v2/reimport-scan/'
 
+    print("is_new_import: ", is_new_import, type(is_new_import))
     print(endpoint)
     r = requests.post(
         url + endpoint,
