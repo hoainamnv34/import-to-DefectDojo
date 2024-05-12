@@ -5,6 +5,16 @@ import argparse
 import os
 
 
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
 def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name, scan_type, filename, active, verified, test_title, close_old_findings, close_old_findings_product_scope, branch_tag, commit_hash):
 
     multipart_form_data = {
@@ -25,7 +35,6 @@ def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name,
 
     endpoint = '/api/v2/import-scan/' if is_new_import else '/api/v2/reimport-scan/'
 
-    print("is_new_import: ", is_new_import, type(is_new_import))
     print(endpoint)
     r = requests.post(
         url + endpoint,
@@ -46,7 +55,7 @@ def fetchArguments():
     parse.add_argument('--engagement', dest='engagement_name')
     parse.add_argument('--scan', dest='scan_type')
     parse.add_argument('--report', dest='report')
-    parse.add_argument('--is_new_import', dest='is_new_import', type=bool)
+    parse.add_argument('--is_new_import', dest='is_new_import', type=str2bool)
     parse.add_argument('--token', dest='token')
 
 
@@ -64,6 +73,7 @@ def fetchArguments():
 
 if __name__ == "__main__":
     args = fetchArguments()
+    print(args)
 
     uploadToDefectDojo(
         args.is_new_import, 

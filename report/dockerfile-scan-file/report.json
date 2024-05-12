@@ -1,0 +1,12 @@
+[
+	{
+		"filename": "./Dockerfile",
+		"namespace": "main",
+		"successes": 8,
+		"failures": [
+			{
+				"msg": "Potential secret in ENV found: password"
+			}
+		]
+	}
+]
