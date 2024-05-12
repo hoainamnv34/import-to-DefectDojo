@@ -24,6 +24,8 @@ def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name,
         multipart_form_data['file'] = (filename, open(filename, 'rb'))
 
     endpoint = '/api/v2/import-scan/' if is_new_import else '/api/v2/reimport-scan/'
+
+    print(endpoint)
     r = requests.post(
         url + endpoint,
         files=multipart_form_data,
