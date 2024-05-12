@@ -65,7 +65,7 @@ runs:
   - "${{ inputs.scan }}"
   - --report 
   - "${{ inputs.report }}"
-  - --is-new
+  - --is_new_import
   - "${{ inputs.is_new_import }}"
   - --token
   - "${{ inputs.token }}"
