@@ -73,8 +73,6 @@ runs:
   - "${{ inputs.active }}"
   - --verified
   - "${{ inputs.verified }}"
-  - --endpoint_to_add
-  - "${{ inputs.endpoint_to_add }}"
   - --test_title
   - "${{ inputs.test_title }}"
   - --close_old_findings
