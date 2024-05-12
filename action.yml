@@ -1,31 +1,54 @@
-name: "Inport-to-DefectDojo"
-description: "import scan results to DefectDojo"
+name: "Import-to-DefectDojo"
+description: "Import scan results to DefectDojo"
 author: "hoainamnv34"
 inputs: 
   host:
-    description: "host of DefectDojo"
+    description: "Host of DefectDojo"
     required: true
   product:
-    description: "product name"
+    description: "Product name"
     required: true
   engagement:
-    description: "engagement name"
+    description: "Engagement name"
     required: true
   scan:
     description: "Scan type"
     required: true
   is_new_import:
-    description: "is new import (True/False)"
+    description: "Is new import (True/False)"
+    required: false
     default: "True"
   report:
     description: "Report for import"
     required: false
   token:
-    description: "token for import"
+    description: "Token for import"
     required: true
-  # output:
-  #   description: "Output format for results"
-  #   default: "stdout"
+  active:
+    description: "Active status"
+    required: false
+    default: "False"
+  verified:
+    description: "Verified status"
+    required: false
+    default: "False"
+  test_title:
+    description: "Test title"
+    required: false
+  close_old_findings:
+    description: "Close old findings"
+    required: false
+    default: "False"
+  close_old_findings_product_scope:
+    description: "Close old findings product scope"
+    required: false
+    default: "False"
+  branch_tag:
+    description: "Branch tag"
+    required: false
+  commit_hash:
+    description: "Commit hash"
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -46,3 +69,19 @@ runs:
   - "${{ inputs.is_new_import }}"
   - --token
   - "${{ inputs.token }}"
+  - --active
+  - "${{ inputs.active }}"
+  - --verified
+  - "${{ inputs.verified }}"
+  - --endpoint_to_add
+  - "${{ inputs.endpoint_to_add }}"
+  - --test_title
+  - "${{ inputs.test_title }}"
+  - --close_old_findings
+  - "${{ inputs.close_old_findings }}"
+  - --close_old_findings_product_scope
+  - "${{ inputs.close_old_findings_product_scope }}"
+  - --branch_tag
+  - "${{ inputs.branch_tag }}"
+  - --commit_hash
+  - "${{ inputs.commit_hash }}"

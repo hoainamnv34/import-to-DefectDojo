@@ -5,23 +5,24 @@ import argparse
 import os
 
 
-def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name, scan_type, filename):
+def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name, scan_type, filename, active, verified, test_title, close_old_findings, close_old_findings_product_scope, branch_tag, commit_hash):
 
-    if filename == '':
-        multipart_form_data = {
-            'scan_type': (None, scan_type),
-            'product_name': (None, product_name),
-            'engagement_name': (None, engagement_name),
-        }
+    multipart_form_data = {
+        'scan_type': (None, scan_type),
+        'product_name': (None, product_name),
+        'engagement_name': (None, engagement_name),
+        'active': (None, str(active)),
+        'verified': (None, str(verified)),
+        'endpoint_to_add': (None, str(endpoint_to_add)),
+        'test_title': (None, test_title),
+        'close_old_findings': (None, str(close_old_findings)),
+        'close_old_findings_product_scope': (None, str(close_old_findings_product_scope)),
+        'branch_tag': (None, branch_tag),
+        'commit_hash': (None, commit_hash),
+    }
 
-    else:
-        multipart_form_data = {
-            'file': (filename, open(filename, 'rb')),
-            'scan_type': (None, scan_type),
-            'product_name': (None, product_name),
-            'engagement_name': (None, engagement_name),
-
-        }
+    if filename:
+        multipart_form_data['file'] = (filename, open(filename, 'rb'))
 
     endpoint = '/api/v2/import-scan/' if is_new_import else '/api/v2/reimport-scan/'
     r = requests.post(
@@ -45,6 +46,15 @@ def fetchArguments():
     parse.add_argument('--report', dest='report')
     parse.add_argument('--is-new', dest='is_new_import', type=bool)
     parse.add_argument('--token', dest='token')
+
+
+    parse.add_argument('--active', dest='active' , type=bool)
+    parse.add_argument('--verified', dest='verified' , type=bool)
+    parse.add_argument('--test_title', dest='test_title',)
+    parse.add_argument('--close_old_findings', dest='close_old_findings', type=bool)
+    parse.add_argument('--close_old_findings_product_scope', dest='close_old_findings_product_scope', type=bool)
+    parse.add_argument('--branch_tag', dest='branch_tag')
+    parse.add_argument('--commit_hash', dest='commit_hash')
     
     return parse.parse_args()   
     
@@ -53,30 +63,19 @@ def fetchArguments():
 if __name__ == "__main__":
     args = fetchArguments()
 
-    uploadToDefectDojo(args.is_new_import, args.token, args.host, args.product_name, args.engagement_name, args.scan_type, args.report)
-
-    # try:
-    #     token = os.getenv("DEFECT_DOJO_API_TOKEN")
-    # except KeyError: 
-    #     print("Please set the environment variable DEFECT_DOJO_API_TOKEN") 
-    #     sys.exit(1)
-    # print(sys.argv)
-    # if len(sys.argv) == 15:
-    #     url = sys.argv[2]
-    #     product_name = sys.argv[4]
-    #     engagement_name = sys.argv[6]
-    #     scan_type = sys.argv[8]
-    #     report = sys.argv[10]
-    #     is_new_import = sys.argv[12]
-    #     token=sys.argv[14]
-
-    #     is_new_import = True if is_new_import=="True" else False
-
-    #     print("token ", token, "host: ", url, " product_name", product_name, " engagement_name", engagement_name, " scan_type", scan_type)
-        
-    #     uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name, scan_type, report)
-    # else:
-    #     print(
-    #         'Usage: python3 import_to_defect_dojo.py --host DOJO_URL --product PRODUCT_NAME --engagement ENGAGEMENT_NAME --report REPORT_FILE --new-import True/False --token TOKEN')
-    
-    
+    uploadToDefectDojo(
+        args.is_new_import, 
+        args.token, 
+        args.host, 
+        args.product_name, 
+        args.engagement_name, 
+        args.scan_type, 
+        args.report, 
+        args.active, 
+        args.verified, 
+        args.test_title, 
+        args.close_old_findings, 
+        args.close_old_findings_product_scope, 
+        args.branch_tag, 
+        args.commit_hash
+    )
