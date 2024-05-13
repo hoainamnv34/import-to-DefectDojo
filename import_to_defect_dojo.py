@@ -59,11 +59,11 @@ def fetchArguments():
     parse.add_argument('--token', dest='token')
 
 
-    parse.add_argument('--active', dest='active' , type=bool)
-    parse.add_argument('--verified', dest='verified' , type=bool)
+    parse.add_argument('--active', dest='active' , type=str2bool)
+    parse.add_argument('--verified', dest='verified' , type=str2bool)
     parse.add_argument('--test_title', dest='test_title',)
-    parse.add_argument('--close_old_findings', dest='close_old_findings', type=bool)
-    parse.add_argument('--close_old_findings_product_scope', dest='close_old_findings_product_scope', type=bool)
+    parse.add_argument('--close_old_findings', dest='close_old_findings', type=str2bool)
+    parse.add_argument('--close_old_findings_product_scope', dest='close_old_findings_product_scope', type=str2bool)
     parse.add_argument('--branch_tag', dest='branch_tag')
     parse.add_argument('--commit_hash', dest='commit_hash')
     
