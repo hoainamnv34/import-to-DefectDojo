@@ -55,7 +55,7 @@ def fetchArguments():
     parse.add_argument('--engagement', dest='engagement_name')
     parse.add_argument('--scan', dest='scan_type')
     parse.add_argument('--report', dest='report')
-    parse.add_argument('--is_new_import', dest='is_new_import', type=str2bool)
+    parse.add_argument('--is_new_import', dest='is_new_import', type=str2bool, required=False, default=None)
     parse.add_argument('--token', dest='token')
 
 
