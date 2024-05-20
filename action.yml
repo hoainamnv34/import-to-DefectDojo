@@ -17,7 +17,6 @@ inputs:
   is_new_import:
     description: "Is new import (True/False)"
     required: false
-    default: "True"
   report:
     description: "Report for import"
     required: false

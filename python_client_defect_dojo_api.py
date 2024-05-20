@@ -83,4 +83,6 @@ if __name__ == "__main__":
     except KeyError: 
         print("Please set the environment variable DEFECT_DOJO_API_TOKEN") 
         sys.exit(1)
-    uploadToDefectDojo("report.json", False)
+    # uploadToDefectDojo("report.json", False)
+    # get_engagements()
+    print(get_product_id("WebGoat Appd"))

@@ -1,3 +1,4 @@
+import json
 import string
 import requests
 import sys
@@ -47,7 +48,6 @@ def uploadToDefectDojo(is_new_import, token, url, product_name, engagement_name,
         sys.exit(f'Post failed: {r.text}')
     print(r.text)
 
-
 def fetchArguments():
     parse = argparse.ArgumentParser(description='Import scan results to DefectDojo')
     parse.add_argument('--host', dest='host')
@@ -68,15 +68,81 @@ def fetchArguments():
     parse.add_argument('--commit_hash', dest='commit_hash')
     
     return parse.parse_args()   
-    
+
+
+
+def get_product_id(product_name, token, url):
+    headers = {"Accept": "application/json", "Authorization": "Token " + token}
+
+    r = requests.get(url + '/api/v2/products',headers=headers)
+    if r.status_code != 200:
+        sys.exit(f'Get failed: {r.text}')
+    data = json.loads(r.text)
+    for product in data['results']:
+        if product['name'] == product_name:
+            return product['id']
+        
+def get_engagement_id(product_id, engagement_name, token, url):
+    headers = {"Accept": "application/json", "Authorization": "Token " + token}
+
+    r = requests.get(url + '/api/v2/engagements',headers=headers)
+    if r.status_code != 200:
+        sys.exit(f'Get failed: {r.text}')
+    data = json.loads(r.text)
+    for engagement in data['results']:
+        if engagement['name'] == engagement_name:
+            if engagement['product'] == product_id:
+                return engagement['id']
+            
+def get_test_id(engagement_id, test_title, token, url):
+    headers = {"Accept": "application/json", "Authorization": "Token " + token}
+
+    r = requests.get(url + '/api/v2/tests',headers=headers)
+    if r.status_code != 200:
+        sys.exit(f'Get failed: {r.text}')
+    data = json.loads(r.text)
+    for test in data['results']:
+        if test['engagement'] == engagement_id:
+            if test['title'] == test_title:
+                return test['id']
+
+def is_new_import(product_name, engagement_name, test_title, token, url):
+    product_id = get_product_id(product_name, token, url)
+    if not product_id:
+        sys.exit('[ERROR] Not found product')
+    else:
+        print('[INFO] Product ID:', product_id)
+
+    engagement_id = get_engagement_id(product_id, engagement_name, token, url)
+
+    if not engagement_id:
+        sys.exit('[ERROR] Not found Engagement')
+    else:
+        print('[INFO] Engagement ID:', product_id)
+
+    test_id = get_test_id(engagement_id, test_title, token, url)
+    if not test_id:
+        return True
+    else:
+        print('[INFO] Test ID:', product_id)
+        return False
+
+
 
 
 if __name__ == "__main__":
     args = fetchArguments()
     print(args)
 
+    
+
+    if args.is_new_import:
+        is_new = args.is_new_import
+    else:
+        is_new = is_new_import(args.product_name, args.engagement_name, args.test_title,args.token, args.host, )
+
     uploadToDefectDojo(
-        args.is_new_import, 
+        is_new, 
         args.token, 
         args.host, 
         args.product_name, 
