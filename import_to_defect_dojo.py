@@ -13,6 +13,8 @@ def str2bool(v):
         return True
     elif v.lower() in ('no', 'false', 'f', 'n', '0'):
         return False
+    elif v.lower() in ('none', 'null', ""):
+        return None
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
