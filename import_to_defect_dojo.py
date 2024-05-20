@@ -139,7 +139,9 @@ if __name__ == "__main__":
     if args.is_new_import:
         is_new = args.is_new_import
     else:
-        is_new = is_new_import(args.product_name, args.engagement_name, args.test_title,args.token, args.host, )
+        is_new = is_new_import(args.product_name, args.engagement_name, args.test_title,args.token, args.host )
+
+    print("is_new_import: ", is_new)
 
     uploadToDefectDojo(
         is_new, 
